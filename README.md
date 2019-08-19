@@ -99,3 +99,10 @@ $ chmod 644 .ssh/authorized_keys
 ```
 $ ssh grader@instanceIP -p SSH-port -i ~/.ssh/keys-file
 ```
+
+### Configure the local timezone to UTC
+```
+$ sudo dpkg-reconfigure tzdata
+```
+* Choose ```none of the above from the first list```
+* Choose ```UTC``` from the second list
