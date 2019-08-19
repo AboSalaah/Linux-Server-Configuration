@@ -162,3 +162,31 @@ $ exit
 ```
 $ sudo apt-get install git
 ```
+
+### Install packages needed for the project to work
+* Install Flask
+```
+$ sudo apt-get install python-flask
+
+```
+* Install SQLalchemy
+```
+$ sudo apt-get install python-sqlalchemy
+```
+
+* Install requests module
+```
+$ sudo apt-get install python-requests
+```
+* Install PostgreSQL database adapter for the Python 
+```
+$ sudo apt-get install python-psycopg2
+```
+* Install http client library
+```
+$ sudo apt-get install python-httplib2
+```
+* Install oauth2 client library
+```
+$ sudo apt-get install python-oauth2client
+```
