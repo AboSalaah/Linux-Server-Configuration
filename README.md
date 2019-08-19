@@ -51,6 +51,11 @@ To                         Action      From
 123/udp (v6)               ALLOW       Anywhere (v6)
 
 ```
+### Disable root login
+```
+$ sudo nano /etc/ssh/sshd_config
+```
+* Change ```PermitRootLogin prohibit-password```  to  ```PermitRootLogin no```
 
 ### Create grader user
 ```
