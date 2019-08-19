@@ -249,9 +249,9 @@ $ sudo nano /etc/apache2/sites-available/FlaskApp.conf
 
 ```
 
-* Create and edit ```/var/www/ItemCatalog/flaskapp.wsgi ```
+* Create and edit ```/var/www/FlaskApp/flaskapp.wsgi ```
 ```
-$ sudo nano /var/www/ItemCatalog/flaskapp.wsgi
+$ sudo nano /var/www/FlaskApp/flaskapp.wsgi
 ```
 * Paste the following in it
 ```
@@ -317,9 +317,14 @@ https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-pos
 
 https://www.tecmint.com/disable-root-login-in-linux/
 
+
+https://www.tecmint.com/difference-between-su-and-su-commands-in-linux/
+
 https://www.cyberciti.biz/faq/howto-linux-unix-change-setup-timezone-tz-variable/
 
 https://askubuntu.com/questions/138423/how-do-i-change-my-timezone-to-utc-gmt
 
 https://davidegan.me/hide-git-repos-on-public-sites/
+
+
 
