@@ -18,3 +18,37 @@ $ sudo nano /etc/ssh/sshd_config
 ```
 $ sudo service ssh restart
 ```
+
+### Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123).
+* Block all the incoming requests
+
+```
+$ sudo ufw default deny incoming 
+```
+* Allow all the outgoing requests
+```
+$ sudo ufw default allow outgoing
+```
+* Allow incoming requests to specified ports
+```
+$ sudo ufw allow 2200/tcp
+$ sudo ufw allow www
+$ sudo ufw allow 123/udp 
+```
+* Activate the ufw firewall
+```
+$ sudo ufw enable
+```
+* Now, if we run  ```  $ sudo ufw status ```
+```
+To                         Action      From
+--                         ------      ----
+2200/tcp                   ALLOW       Anywhere
+80/tcp                     ALLOW       Anywhere
+123/udp                    ALLOW       Anywhere
+2200/tcp (v6)              ALLOW       Anywhere (v6)
+80/tcp (v6)                ALLOW       Anywhere (v6)
+123/udp (v6)               ALLOW       Anywhere (v6)
+
+```
+
