@@ -52,3 +52,15 @@ To                         Action      From
 
 ```
 
+### Create grader user
+```
+$ sudo adduser grader
+```
+### Give sudo access to grader user
+```
+$ sudo cp /etc/sudoers.d/90-cloud-init-users /etc/sudoers.d/grader
+
+$ sudo nano /etc/sudoers.d/grader
+```
+* Replace ```ubuntu ALL=(ALL) NOPASSWD:ALL``` with ```grader ALL=(ALL) NOPASSWD:ALL```
+
