@@ -88,3 +88,9 @@ $ touch .ssh/authorized_keys
 ```
 
 * Switch again to your local machine and copy the content of the public key file which has the extension ```.pub``` and paste it in ```authorized_keys``` file in your server
+
+### Change the permissions of ```.ssh``` directory and ```authorized_keys``` file
+```
+$ chmod 700 .ssh
+$ chmod 644 .ssh/authorized_keys
+```
