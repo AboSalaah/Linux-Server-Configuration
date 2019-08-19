@@ -51,7 +51,7 @@ To                         Action      From
 123/udp (v6)               ALLOW       Anywhere (v6)
 
 ```
-### Disable root login
+### Disable root remote login
 ```
 $ sudo nano /etc/ssh/sshd_config
 ```
@@ -69,3 +69,22 @@ $ sudo nano /etc/sudoers.d/grader
 ```
 * Replace ```ubuntu ALL=(ALL) NOPASSWD:ALL``` with ```grader ALL=(ALL) NOPASSWD:ALL```
 
+### Create an SSH key pair for grader using the ssh-keygen tool
+
+* On the local machine type this command
+```
+$ ssh-keygen
+```
+* It will ask for a password to add another layer of security
+
+* On the server switch to the grader user and make sure you're in the home directory ```cd ~ ```
+* Make ```.ssh``` directory which will store all your key related files
+```
+$ mkdir .ssh
+```
+* Create new file within ```.ssh``` directory called ```authorized_keys``` that will store all the public keys that this user is allowed to use for authentication
+```
+$ touch .ssh/authorized_keys
+```
+
+* Switch again to your local machine and copy the content of the public key file which has the extension ```.pub``` and paste it in ```authorized_keys``` file in your server
