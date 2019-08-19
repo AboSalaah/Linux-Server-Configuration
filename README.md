@@ -157,3 +157,8 @@ $ postgres=# \q
 ```
 $ exit
 ```
+
+### Install git
+```
+$ sudo apt-get install git
+```
