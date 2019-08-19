@@ -113,3 +113,47 @@ $ sudo apt-get install apache2
 $ sudo apt-get install libapache2-mod-wsgi python-dev
 $ sudo service apache2 restart
 ```
+
+### Install and configure PostgreSQL
+* Install PostgreSQL
+```
+$ sudo apt-get install postgresql
+```
+* To make sure no remote connections are allowed we can check this file 
+```
+$ sudo nano /etc/postgresql/9.5/main/pg_hba.conf
+```
+
+* During the Postgres installation, an operating system user named postgres was created to correspond to the postgres PostgreSQL administrative user. We need to change to this user to perform administrative tasks
+```
+$ sudo su - postgres
+```
+* Get into postgreSQL shell 
+```
+$ psql
+```
+* Create a new database named ```itemcatalogpsql```
+```
+$ postgres=# CREATE DATABASE itemcatalogpsql;
+```
+* Create a new user name ```catalog```
+```
+$ postgres=# CREATE USER catalog;
+```
+* Set a password for the user ```catalog```
+```
+$ postgres=# ALTER ROLE catalog WITH PASSWORD '1234';
+```
+* Give our database user access rights to the database we created
+
+```
+$ postgres=# GRANT ALL PRIVILEGES ON DATABASE itemcatalogpsql TO catalog;
+```
+* To exit postgreSQL shell 
+```
+$ postgres=# \q
+```
+* To logout from ```postgres``` user
+```
+$ exit
+```
