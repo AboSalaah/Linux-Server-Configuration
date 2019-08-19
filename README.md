@@ -94,3 +94,8 @@ $ touch .ssh/authorized_keys
 $ chmod 700 .ssh
 $ chmod 644 .ssh/authorized_keys
 ```
+
+### Login to grader user
+```
+$ ssh grader@instanceIP -p SSH-port -i ~/.ssh/keys-file
+```
