@@ -8,3 +8,13 @@ In this project we will take a baseline installation of a Linux server and prepa
 $ sudo apt-get update
 $ sudo apt-get upgrade
 ```
+### Change the SSH port from 22 to 2200
+```
+$ sudo nano /etc/ssh/sshd_config
+```
+* Then change port 20 to 2200, save and exit.
+
+* After that we need to reload SSH
+```
+$ sudo service ssh restart
+```
