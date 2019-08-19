@@ -106,3 +106,10 @@ $ sudo dpkg-reconfigure tzdata
 ```
 * Choose ```none of the above from the first list```
 * Choose ```UTC``` from the second list
+
+### Install and configure Apache to serve a Python mod_wsgi application
+```
+$ sudo apt-get install apache2
+$ sudo apt-get install libapache2-mod-wsgi python-dev
+$ sudo service apache2 restart
+```
