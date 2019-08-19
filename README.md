@@ -1,6 +1,10 @@
 # Linux Server Configuration
 In this project we will take a baseline installation of a Linux server and prepare it to host our web applications. We will secure our server from a number of attack vectors, install and configure a database server, and deploy one of our existing web applications onto it.
 
+* IP ADDRESS: 3.10.21.0
+* SSH port: 2200
+* Complete URL to the hosted web application: http://3.10.21.0/
+* Public key location on the server: /home/grader/.ssh/authorized_keys
 ## Getting Started
 
 ### Update all currently installed packages
@@ -190,3 +194,132 @@ $ sudo apt-get install python-httplib2
 ```
 $ sudo apt-get install python-oauth2client
 ```
+
+### Deploy the Item Catalog project
+* Move to the /var/www directory
+```
+$ cd /var/www
+```
+
+* Create a directory that will contain the application
+
+```
+$ sudo mkdir FlaskApp
+```
+* Make ubuntu user the owner of that folder in order to be able to clone the app inside it
+```
+$ sudo chown ubuntu /var/www/FlaskApp
+```
+* Move inside the newly created directory
+```
+$ cd FlaskApp
+```
+* Clone the Item Catalog app repository
+```
+$ git clone https://github.com/AboSalaah/Item-Catalog.git
+```
+* Change the app name to ```FlaskApp```
+```
+$ sudo mv ./Item-Catalog ./FlaskApp
+```
+* Create and edit ```/etc/apache2/sites-available/FlaskApp.conf```
+```
+$ sudo nano /etc/apache2/sites-available/FlaskApp.conf
+```
+
+* Paste the following in it
+```
+<VirtualHost *:80>
+        ServerName 3.10.21.0
+        ServerAdmin admin@mywebsite.com
+        WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
+        <Directory /var/www/FlaskApp/FlaskApp/>
+                Order allow,deny
+                Allow from all
+        </Directory>
+        Alias /static /var/www/FlaskApp/FlaskApp/static
+        <Directory /var/www/FlaskApp/FlaskApp/static/>
+                Order allow,deny
+                Allow from all
+        </Directory>
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+```
+
+* Create and edit ```/var/www/ItemCatalog/flaskapp.wsgi ```
+```
+$ sudo nano /var/www/ItemCatalog/flaskapp.wsgi
+```
+* Paste the following in it
+```
+#! /usr/bin/python
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0,"/var/www/FlaskApp/FlaskApp/")
+
+# home points to the home.py file
+from server import app as application
+application.secret_key = "somesecretsessionkey"
+
+```
+
+* Edit the line that read from the client secrets file 
+
+```
+CLIENT_ID = json.loads(open('/var/www/FlaskApp/FlaskApp/client_secrets.json', 'r').read())['web']['client_id']
+```
+* Restart Apache
+```
+$ sudo service apache2 restart
+```
+* Make ```.git``` directory not publicly accessible via a browser
+```
+$ sudo nano /etc/apache2/conf-enabled/security.conf
+```
+* Change this section
+```
+# Forbid access to version control directories
+#
+# If you use version control systems in your document root, you should
+# probably deny access to their directories. For example, for subversion:
+#
+#<DirectoryMatch "/\.svn">
+# Require all denied
+#</DirectoryMatch>
+```
+* To this section
+```
+# Forbid access to version control directories
+#
+# If you use version control systems in your document root, you should
+# probably deny access to their directories. For example, for subversion:
+#
+<DirectoryMatch "/\.git">
+Require all denied
+</DirectoryMatch>
+
+```
+* Restart Apache again
+```
+$ sudo service apache2 restart
+```
+* A list of any third-party resources I made use of to complete this project
+
+https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
+
+https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04
+
+https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e
+
+https://www.tecmint.com/disable-root-login-in-linux/
+
+https://www.cyberciti.biz/faq/howto-linux-unix-change-setup-timezone-tz-variable/
+
+https://askubuntu.com/questions/138423/how-do-i-change-my-timezone-to-utc-gmt
+
+https://davidegan.me/hide-git-repos-on-public-sites/
+
